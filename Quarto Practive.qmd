@@ -1,0 +1,81 @@
+---
+title: "Task 5a"
+format: html
+editor: visual
+execute: 
+  warning: false
+---
+
+Up here\^\^\^\^\^
+
+```{r}
+library(tidyverse)
+
+```
+
+Normally i'd use pacman but in library it shows all the printed output
+
+So lets supress some information JUST FOR THIS CHUNK
+
+```{r}
+#| warning: false
+#| message: false
+library(tidyverse)
+```
+
+Thats a lot cleaner
+
+Running code not showing code or output
+
+```{r}
+#| include: false #removes all output 
+# Return first 6 lines of data
+head(starwars)
+
+#Returns dimensions 
+dim(starwars)
+```
+
+Lets plot that star wars data showing output but not code
+
+```{r}
+#| warning: false
+#| echo: false
+#We only want the graph
+ggplot(starwars, aes(height,mass, color=mass))+
+  geom_point()+
+  labs(x= "Height (cm)", 
+       y = "Mass (kg)")+
+  theme_linedraw()
+
+```
+
+Now lets make a histogram show only code and output
+
+```{r}
+#| warning: false
+#| fig-cap: "caption text"
+#| fig-alt: "figure alt text"
+ggplot(starwars, aes(x = height))+
+  geom_histogram(color = "red", fill = "limegreen")
+
+```
+
+So far we've only been putting these in each We can put ts in the HEADER.
+
+find summary stats for star wars characters
+
+```{r}
+
+sw_height_mean <- mean(starwars$height, na.rm = T); sw_height_mean
+sw_height_median <- median(starwars$height,
+                           na.rm = T)
+sw_height_var <- var(starwars$height, na.rm = T)
+sw_height_sd <- sd(starwars$height, na.rm = TRUE)
+```
+
+Lets try to inline report this
+
+The mean height of the characters in Star Wars is `r round(sw_height_mean, 1)` cm.
+
+The median height of the characters in Star Wars is `r sw_height_median` cm.
